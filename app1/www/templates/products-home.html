@@ -1,0 +1,51 @@
+{{#each this}}
+
+<div class="scroll-view ionic-scroll overflow-scroll scroll-x">
+  <div class="max-content">
+    
+      {{#each this}}
+
+        <div class="container-card">
+
+          <div class="card">
+            <!-- <span class="new-box"><span class="new-label">Nuovo</span></span> -->
+            <div class="item item-divider product-name">{{name}}</div>
+            <div class="item item-text-wrap product-image">
+              <a href="#product/{{id}}">
+                {{#if id_default_image}}
+                <img src="http://loveitaly.altervista.org/api/images/products/{{id}}/{{id_default_image}}&ws_key=IYI6M35MLB8UVW38Y99RY3YPQWRX5X8H" alt="">
+                {{else}}
+                <img src="img/logo-loveitaly-app.png" alt="">
+                {{/if}}
+              </a>
+            </div>
+            <div class="item item-divider product-desc">
+              <p class="product-price">Prezzo: € {{formatCurrency price}}</p>
+              
+              <p>
+                {{#if manufacturer_name}}
+                  {{manufacturer_name}}
+                {{else}}
+                  &nbsp;
+                {{/if}}
+              </p>
+              
+              <div class="row">
+                <div class="col col-50">
+                  <button class="button button-buy">Acquista</button>
+                </div>
+                <div class="col col-50">
+                  <button class="button button-whislist">Whislist</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      {{/each}}
+
+  </div>
+
+</div>
+
+{{/each}}

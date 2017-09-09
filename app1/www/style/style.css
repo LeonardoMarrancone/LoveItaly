@@ -1,0 +1,140 @@
+body{
+  font-family: Open Sans,Helvetica,sans-serif;
+}
+img {
+  max-width: 100%;
+  max-height: 100%;
+}
+.bar-header{
+  background-color: #439933;
+}
+.bar-header .ion-navicon{
+  color: #fff;
+}
+.bar-header .logo{
+  margin: 0 auto; 
+  padding: 5px;
+}
+.bar-header .button-cart{
+  color: #a21c26; 
+  background-color: #fff;
+}
+.bar-header .ion-android-cart{
+  font-size: 25px;
+}
+.bar-subheader{
+  top: 43px;
+}
+.bar-subheader .item-input-wrapper{
+  max-height: 34px;
+}
+.bar-subheader .item-input-wrapper input{
+  width: 100%; 
+  background-color: transparent;
+}
+.main-content{
+  top: 88px;
+}
+.main-content .slider{
+  height: 250px; 
+  visibility: visible;
+}
+.main-content .slider .slider-slide img{
+  max-height: 100%; 
+  width: 100%;
+}
+.main-content h2{
+  text-align: center; 
+  margin: 0; 
+  color: #127f3f;
+}
+.max-content{
+  width: -webkit-max-content; 
+  width: max-content;
+}
+.max-content .container-card{
+  float: left;
+}
+.max-content .container-card .card{
+  position: relative;
+  max-width: 15em;
+}
+.max-content .container-card .card .new-box{
+  position: absolute; 
+  overflow: hidden; 
+  height: 85px; 
+  width: 85px; 
+  text-align: center; 
+  z-index: 0; 
+  top: 0px; 
+  right: 0px; 
+  z-index: 999;
+}
+.max-content .container-card .card .new-label{
+  z-index: 1; 
+  background: none repeat scroll 0 0 #a21c26; 
+  color: #fff; 
+  display: block; 
+  font: 800 14px/20px Open Sans,Helvetica,sans-serif; 
+  right: -46px; 
+  padding: 25px 0 7px; 
+  position: absolute; 
+  text-align: center; 
+  text-transform: capitalize; 
+  top: -11px; 
+  width: 120px; 
+  transform: rotate(45deg);
+}
+.max-content .container-card .card .product-image img{
+  max-width: 100%;
+  max-height: 100%;
+  transform: translateY(-50%);
+  position: relative;
+  top: 50%;
+}
+.container-card .card .product-name{
+  text-align: center; 
+  color: #127f3f; 
+  font-weight: 900;
+}
+.max-content .container-card .card .product-image, .single-product .product-slider-image{
+  padding: 5px; 
+  text-align: center;
+  height: 10em;
+}
+.container-card .card .product-desc{
+  text-align: center; 
+  padding: 0px; 
+  padding-top: 8px;
+}
+.container-card .card .product-desc .product-price{
+  color: #127f3f; 
+  font-weight: bold;
+}
+.container-card .card .button-buy, .container-card .card .button-whislist{
+  font-weight: bold; 
+  height: 35px; 
+  line-height: 35px; 
+  min-height: initial; 
+  min-width: initial; 
+  background-color: #127f3f; 
+  color: #fff
+}
+.single-product .product-name{
+  margin: 5px;
+}
+.single-product .product-image{
+  padding: 5px; 
+  text-align: center;
+}
+.single-product .product-image img{
+  border-radius: 10px;
+}
+.single-product .product-slider-image{
+  float: left;
+  height: auto;
+}
+.single-product .product-slider-image img {
+  max-width: 11em;
+  border-radius: 10px;
+}
