@@ -9,7 +9,7 @@
 
           <div class="card">
             <!-- <span class="new-box"><span class="new-label">Nuovo</span></span> -->
-            <div class="item item-divider product-name">{{name}}</div>
+            <div class="item item-divider product-name"><a href="#product/{{id}}">{{name}}</a></div>
             <div class="item item-text-wrap product-image">
               <a href="#product/{{id}}">
                 {{#if id_default_image}}
@@ -32,10 +32,10 @@
               
               <div class="row">
                 <div class="col col-50">
-                  <button class="button button-buy">Acquista</button>
+                  <button class="button button-green button-buy">Acquista</button>
                 </div>
                 <div class="col col-50">
-                  <button class="button button-whislist">Whislist</button>
+                  <button class="button button-green button-whislist">Whislist</button>
                 </div>
               </div>
             </div>

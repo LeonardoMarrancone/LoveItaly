@@ -13,9 +13,12 @@ define(function(require) {
     initialize: function(options) {
       // load the precompiled template
       this.template = Utils.templates.structure;
-      //this.on("inTheDOM", this.rendered);
+      this.on("inTheDOM", () => {
+        $("#back").on("tap", this.goBack);
+        $("#back").on("back", this.goBack);
+      });
       // bind the back event to the goBack function
-      //document.getElementById("back").addEventListener("back", this.goBack(), false);
+      
     },
 
     render: function() {
@@ -23,6 +26,7 @@ define(function(require) {
       this.el.innerHTML = this.template({});
       // cache a reference to the content element
       this.contentElement = this.$el.find('#content')[0];
+
       return this;
     },
 
@@ -31,13 +35,7 @@ define(function(require) {
 
     // generic go-back function
     goBack: function() {
-      //window.history.back();
-    },
-
-    setActiveTabBarElement: function(elementId) {
-      // here we assume that at any time at least one tab bar element is active
-      document.getElementsByClassName("active")[0].classList.remove("active");
-      document.getElementById(elementId).classList.add("active");
+      window.history.back();
     },
 
     // product: function(event) {

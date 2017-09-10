@@ -1,0 +1,38 @@
+<div class="single-manufacturer">
+  <h2 class="manufacturer-name">{{name}}</h2>
+  <div class="container-card">
+
+    <div class="card">
+      <div class="item item-text-wrap">
+        <div class="manufacturer-description">
+          {{{description}}}
+        </div>
+      </div>
+      <div class="item item-text-wrap">
+        <h3>Comuni di consegna</h3>
+        <p>{{consegna}}</p>
+      </div>
+      <div class="item item-text-wrap">
+        <h3>Contatti</h3>
+        <address>
+          Indirizzo 1: {{address.address1}}, {{address.postcode}}, {{address.city}}
+          
+          {{#if address.address2}}
+          <br>
+          Indirizzo 2: {{address.address2}}, {{address.postcode}}, {{address.city}}
+          {{/if}}
+
+          {{#if address.phone}}
+          <br>
+          Telefono: <a href="tel:{{address.phone}}">{{address.phone}}</a>
+          {{/if}}
+          {{#if address.phone_mobile}}
+          <br>
+          Cellulare: <a href="tel:{{address.phone_mobile}}">{{address.phone_mobile}}</a>
+          {{/if}}
+        </address>
+      </div>
+      <a href="#manufacturer-products/{{id_manufacturer}}" class="button button-block button-green">Lista Prodotti</a>
+    </div>
+  </div>
+</div>

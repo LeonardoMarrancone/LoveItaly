@@ -5,6 +5,7 @@ define(function(require) {
   var StructureView = require("views/StructureView");
   var MyHome = require("views/pages/MyHome");
   var MyProduct = require("views/pages/MyProduct");
+  var MyManufacturer = require("views/pages/MyManufacturer");
 
   var AppRouter = Backbone.Router.extend({
 
@@ -15,6 +16,7 @@ define(function(require) {
       "": "showStructure",
       "home": "home",
       "product/:id": "product",
+      "manufacturer/:id": "manufacturer",
     },
 
     firstView: "home",
@@ -25,6 +27,13 @@ define(function(require) {
 
     product: function(id) {
       var page = new MyProduct({
+          id: id
+      });
+      this.changePage(page);
+    },
+
+    manufacturer: function(id) {
+      var page = new MyManufacturer({
           id: id
       });
       this.changePage(page);

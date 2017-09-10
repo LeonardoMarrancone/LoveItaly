@@ -5,11 +5,24 @@ img {
   max-width: 100%;
   max-height: 100%;
 }
+.no-padding{
+  padding: 0;
+}
+.no-margin{
+  margin: 0;
+}
 .bar-header{
   background-color: #439933;
 }
-.bar-header .ion-navicon{
+.bar-header .ion-navicon, #back{
   color: #fff;
+}
+#back, #toggle-menu{
+  display: none;
+}
+#back.active, #toggle-menu.active{
+  display: block;
+  opacity: 1;
 }
 .bar-header .logo{
   margin: 0 auto; 
@@ -57,7 +70,7 @@ img {
 }
 .max-content .container-card .card{
   position: relative;
-  max-width: 15em;
+  max-width: 18em;
 }
 .max-content .container-card .card .new-box{
   position: absolute; 
@@ -92,12 +105,20 @@ img {
   position: relative;
   top: 50%;
 }
-.container-card .card .product-name{
+.container-card .card .product-name a{
   text-align: center; 
   color: #127f3f; 
   font-weight: 900;
+  text-decoration: none;
+  font-size: .8em;
+  white-space: normal;
 }
-.max-content .container-card .card .product-image, .single-product .product-slider-image{
+.max-content .container-card .card .product-image{
+  padding: 5px; 
+  text-align: center;
+  height: 10em;
+}
+.single-product .product-slider-image{
   padding: 5px; 
   text-align: center;
   height: 10em;
@@ -111,17 +132,23 @@ img {
   color: #127f3f; 
   font-weight: bold;
 }
-.container-card .card .button-buy, .container-card .card .button-whislist{
+.button-green{
+  background-color: #127f3f; 
+  color: #fff;
   font-weight: bold; 
-  height: 35px; 
+  height: 2.3em; 
   line-height: 35px; 
   min-height: initial; 
-  min-width: initial; 
-  background-color: #127f3f; 
-  color: #fff
+  min-width: initial;
 }
-.single-product .product-name{
+.button-green:focus, .button-green:active, .button-green:hover{
+  color: #fff;
+}
+.single-product .product-name, .single-manufacturer .manufacturer-name{
   margin: 5px;
+}
+.single-product .container-card .card, .single-manufacturer .container-card .card{
+  margin-top: 0;
 }
 .single-product .product-image{
   padding: 5px; 
@@ -132,9 +159,61 @@ img {
 }
 .single-product .product-slider-image{
   float: left;
-  height: auto;
+  max-height: 10em;
 }
 .single-product .product-slider-image img {
   max-width: 11em;
   border-radius: 10px;
+}
+.single-product .product-quantity {
+  padding: 10px;
+}
+.single-product .quantity{
+  display: inline-block;
+  max-width: 5em;
+  padding: 0;
+  max-height: 1.5em;
+}
+.single-product .tabs{
+  position: relative;
+  background-image: none;
+}
+.single-product .tabs .tab-item.active{
+  font-weight: bold;
+}
+.single-product .container-content-tabs{
+  padding: 5px;
+}
+.single-product .container-content-tabs .tab-content{
+  display: none;
+}
+.single-product .container-content-tabs .tab-content.active{
+  display: block;
+}
+.single-product .tab-content .item-note{
+  float: none;
+}
+.single-product .go-manufacturer, .single-product .go-manufacturer-products{
+  margin: 10px;
+}
+.single-manufacturer .manufacturer-description{
+  text-align: justify;
+}
+.single-manufacturer .manufacturer-description h5, .single-manufacturer .manufacturer-description h4, .single-manufacturer .manufacturer-description h6,
+#description-tab h5, #description-tab h6, #description-tab h4{
+  font-size: 1.2em;
+}
+.single-manufacturer h3{
+  font-size: 1.4em;
+}
+.single-manufacturer .manufacturer-description img{
+  display: block;
+}
+.single-manufacturer address {
+  font-size: .9em;
+}
+.button-green .ion-plus-circled {
+  position: relative;
+  top: -3px;
+  left: -5px;
 }

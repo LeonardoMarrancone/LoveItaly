@@ -1,0 +1,103 @@
+<div class="single-product">
+  <h2 class="product-name">{{name}}</h2>
+
+  <div class="container-card">
+
+    <div class="card">
+      <!-- <span class="new-box"><span class="new-label">Nuovo</span></span> -->
+      <div class="item item-text-wrap product-image">
+        <a href="#product/{{id}}">
+          {{#if id_default_image}}
+          <img src="http://loveitaly.altervista.org/api/images/products/{{id}}/{{id_default_image}}&ws_key=IYI6M35MLB8UVW38Y99RY3YPQWRX5X8H" alt="">
+          {{else}}
+          <img src="img/logo-loveitaly-app.png" alt="">
+          {{/if}}
+        </a>
+      </div>
+      <div class="scroll-view ionic-scroll overflow-scroll scroll-x">
+        <div class="max-content">
+        {{#each associations.images as |image|}}
+            <div class="product-slider-image">
+                <img src="http://loveitaly.altervista.org/api/images/products/{{../id}}/{{image.id}}&ws_key=IYI6M35MLB8UVW38Y99RY3YPQWRX5X8H" alt="">
+            </div>
+        {{/each}}
+        </div>
+      </div>
+      <div class="item item-divider product-desc">
+        <p class="product-price">Prezzo: € {{formatCurrency price}}</p>
+        
+        <p class="product-quantity">Quantità: <input type="number" step="1" min="1" name="" class="quantity" value="{{quantity}}"></p>
+
+        <p class="product-manufacturer">
+          {{#if manufacturer_name}}
+            {{manufacturer_name}}
+          {{/if}}
+        </p>
+        
+        <div class="row">
+          <div class="col col-50">
+            <button class="button button-green add-cart"><i class="icon ion-plus-circled"></i>Carrello</button>
+          </div>
+          <div class="col col-50">
+            <button class="button button-green button-whislist"><i class="icon ion-plus-circled"></i>Whislist</button>
+          </div>
+        </div>
+      </div>
+      <div class="item item-text-wrap no-padding">
+        <div class="tabs tabs-icon-left">
+          <a class="tab-item active" data-tab="#description-tab">
+            Descrizione
+          </a>
+          <a id="tab-item" class="tab-item" data-tab="#features-tab">
+            Scheda Prodotto
+          </a>
+          <a class="tab-item" data-tab="#reviews-tab">
+            Recensioni
+          </a>
+        </div>
+
+        <div class="container-content-tabs">
+          <div id="description-tab" class="tab-content active">{{{description}}}</div>
+          <div id="features-tab" class="tab-content">
+            <ul class="list">
+            {{#each features as |feature|}}
+              <li class="item item-divider">
+                {{feature.name}}
+              </li>
+              <li class="item">
+                
+                <span class="item-note">
+                  {{#each feature.value as |val|}}
+                   {{#if @index}}</br>{{/if}} {{val}} 
+                  {{/each}}
+                </span>
+                
+              </li>
+            {{/each}}
+            </ul>
+          </div>
+          <div id="reviews-tab" class="tab-content">
+            <ul class="list">
+            {{#each reviews as |review|}}
+              <li class="item item-avatar">
+                <img src="{{review.user.image}}">
+                <h3 class="user-review">{{review.user.name}}</h3>
+                <span class="rate-review">{{review.rate}}</span> - <span class="date-review">{{review.date}}</span>
+                <p class="content-review">{{review.content}}</p>
+              </li>
+            {{/each}}
+            </ul>
+          </div>
+
+        </div>  
+
+      </div>
+
+      {{#if manufacturer_name}}
+        <a href="#manufacturer/{{id_manufacturer}}" class="button button-block button-green go-manufacturer">Info Venditore</a>
+        {{/if}}
+
+    </div>
+  </div>
+  
+</div>

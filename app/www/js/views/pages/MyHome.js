@@ -42,8 +42,11 @@ define(function(require) {
 
                     return page;
                 },
-                error: function(collection, response, options) {
-                    console.log('Errore chiamata ajax!');
+                error: function(XMLHttpRequest, textStatus, errorThrown) {
+                    console.log('Errore chiamata ajax!' +
+                        '\nReponseText: ' + XMLHttpRequest.responseText +
+                        '\nStatus: ' + textStatus +
+                        '\nError: ' + errorThrown);
                 }
             });
 
@@ -69,8 +72,11 @@ define(function(require) {
 
                             return page;
                         },
-                        error: function(collection, response, options) {
-                            console.log('Errore chiamata ajax!');
+                        error: function(XMLHttpRequest, textStatus, errorThrown) {
+                            console.log('Errore chiamata ajax!' +
+                                '\nReponseText: ' + XMLHttpRequest.responseText +
+                                '\nStatus: ' + textStatus +
+                                '\nError: ' + errorThrown);
                         }
                     });
                 },

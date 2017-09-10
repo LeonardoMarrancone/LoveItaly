@@ -37,7 +37,7 @@ require(['handlebars'], function(Handlebars) {
 
 // We launch the App
 require(['backbone', 'utils'], function(Backbone, Utils) {
-  require(['preloader', 'router'], function(PreLoader, AppRouter) {
+  require(['preloader', 'router', 'jquery'], function(PreLoader, AppRouter, $) {
 
     document.addEventListener("deviceready", run, false);
 
@@ -61,6 +61,19 @@ require(['backbone', 'utils'], function(Backbone, Utils) {
         function startRouter() {
           // launch the router
           var router = new AppRouter();
+
+          router.on('route', function(route, params) {
+
+            if(route == 'showStructure' || route == 'home') {
+              $('#toggle-menu').addClass('active');
+              $('#back.active').removeClass('active');
+            }
+            else {
+              $('#toggle-menu.active').removeClass('active');
+              $('#back').addClass('active');
+            }
+          })
+          
           Backbone.history.start();
         }
       });

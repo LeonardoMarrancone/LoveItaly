@@ -12,5 +12,6 @@ define({
     structure: "templates/structure.html",
     home: "templates/home.html",
     products_home: "templates/products-home.html",
-    product:"templates/product.html",
+    product: "templates/product.html",
+    manufacturer: "templates/manufacturer.html",
 });
