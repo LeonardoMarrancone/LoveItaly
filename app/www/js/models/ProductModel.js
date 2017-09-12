@@ -17,7 +17,7 @@ define(function(require) {
       },
 
       url: function() {
-          var url = 'http://loveitaly.altervista.org/api/products/';
+          var url = 'http://192.168.56.101/loveitaly/api/products/';
           url += this.id;
           url += '?io_format=JSON&ws_key=IYI6M35MLB8UVW38Y99RY3YPQWRX5X8H';
           return url;
@@ -38,7 +38,7 @@ define(function(require) {
               let product_feature = product_features[i];
 
               $.ajax({
-                url: 'http://loveitaly.altervista.org/api/product_features/'+product_feature.id+'?io_format=JSON&ws_key=IYI6M35MLB8UVW38Y99RY3YPQWRX5X8H',
+                url: 'http://192.168.56.101/loveitaly/api/product_features/'+product_feature.id+'?io_format=JSON&ws_key=IYI6M35MLB8UVW38Y99RY3YPQWRX5X8H',
                 async: false,
                 type: "GET",
                 dataType: 'json',
@@ -47,7 +47,7 @@ define(function(require) {
                   let feature_name = data.product_feature.name;
 
                   $.ajax({
-                    url: 'http://loveitaly.altervista.org/api/product_feature_values/'+product_feature.id_feature_value+'?io_format=JSON&ws_key=IYI6M35MLB8UVW38Y99RY3YPQWRX5X8H',
+                    url: 'http://192.168.56.101/loveitaly/api/product_feature_values/'+product_feature.id_feature_value+'?io_format=JSON&ws_key=IYI6M35MLB8UVW38Y99RY3YPQWRX5X8H',
                     async: false,
                     type: "GET",
                     dataType: 'json',

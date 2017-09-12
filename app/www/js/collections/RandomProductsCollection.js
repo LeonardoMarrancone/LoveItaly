@@ -5,7 +5,7 @@ define(function(require) {
     var RandomProductsModel = require("models/RandomProductsModel");
 
     var RandomProductsCollection = Backbone.Collection.extend({
-        constructorName: "ProductsCollection",
+        constructorName: "RandomProductsCollection",
         model: RandomProductsModel,
 
         id_categories: [],
@@ -15,7 +15,7 @@ define(function(require) {
         },
 
         url: function(){
-            var url = 'http://loveitaly.altervista.org/api/products/?display=full&filter[price]=>[0]&io_format=JSON&limit=21&ws_key=IYI6M35MLB8UVW38Y99RY3YPQWRX5X8H';
+            var url = 'http://192.168.56.101/loveitaly/api/products/?display=full&filter[price]=>[0]&io_format=JSON&limit=21&ws_key=IYI6M35MLB8UVW38Y99RY3YPQWRX5X8H';
 
             var random_categories = _.sample(this.id_categories, 3);
 

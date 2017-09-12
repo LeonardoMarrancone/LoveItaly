@@ -9,6 +9,7 @@ define(function(require) {
     var ProductsCollection = require("collections/ProductsCollection");
     var RandomProductsModel = require("models/RandomProductsModel");
     var RandomProductsCollection = require("collections/RandomProductsCollection");
+    var CartModel = require("models/CartModel");
 
     var MyHome = Utils.Page.extend({
 
@@ -39,8 +40,10 @@ define(function(require) {
                     let products_html = page.products_home_template( [prodotti.slice(0, 7), prodotti.slice(7)] );
                     products_html = Handlebars.compile(products_html)();
                     $('#new-products').html(products_html);
+                    $('.main-content').scrollTop(0, 0);
 
-                    return page;
+                    $('.button-buy').on('tap', page.addCart);
+
                 },
                 error: function(XMLHttpRequest, textStatus, errorThrown) {
                     console.log('Errore chiamata ajax!' +
@@ -51,7 +54,7 @@ define(function(require) {
             });
 
             $.ajax({
-                url: 'http://loveitaly.altervista.org/api/categories/?display=[id]&io_format=JSON&ws_key=IYI6M35MLB8UVW38Y99RY3YPQWRX5X8H',
+                url: 'http://192.168.56.101/loveitaly/api/categories/?display=[id]&io_format=JSON&ws_key=IYI6M35MLB8UVW38Y99RY3YPQWRX5X8H',
                 async: true,
                 type: "GET",
                 dataType: 'json',
@@ -70,7 +73,8 @@ define(function(require) {
                             products_html = Handlebars.compile(products_html)();
                             $('#showcase-products').html(products_html);
 
-                            return page;
+                            $('.button-buy').on('tap', page.addCart);
+
                         },
                         error: function(XMLHttpRequest, textStatus, errorThrown) {
                             console.log('Errore chiamata ajax!' +
@@ -92,7 +96,91 @@ define(function(require) {
 
         },
 
+        addCart: function(e){
+            e.preventDefault();
 
+            let product = {
+                id: $(this).attr('data-product-id')
+            };
+
+            let quantity = 1;   
+
+            if (localStorage.getItem('logged') == "true") {
+
+                let cart = new CartModel({
+                    user_id: localStorage.getItem('user_id')
+                });
+
+                cart.fetch({
+                    success: function(model, response, options) {
+
+                        if (model.toJSON().id) {
+                            cart.updateCart(product, quantity, model, false,
+                                function(result, textStatus, jqXHR) {
+                                    navigator.notification.alert(
+                                        '',  // message
+                                        null,         // callback
+                                        'Aggiunto al carrello con successo',            // title
+                                        'OK'                  // buttonName
+                                    );
+                                }, function(jqXHR, textStatus, errorThrown) {
+                                    navigator.notification.alert(
+                                        'Impossibile aggiungere al carrello.',  // message
+                                        null,         // callback
+                                        'Errore',            // title
+                                        'OK'                  // buttonName
+                                    );
+                                    console.log('Errore chiamata ajax!' +
+                                        '\nReponseText: ' + jqXHR.responseText +
+                                        '\nStatus: ' + textStatus +
+                                        '\nError: ' + errorThrown);
+                                })
+                        }
+                        else {
+                            cart.create(function(model){
+                                cart.updateCart(product, quantity, model, false,
+                                    function(result, textStatus, jqXHR) {
+                                        navigator.notification.alert(
+                                            '',  // message
+                                            null,         // callback
+                                            'Aggiunto al carrello con successo',            // title
+                                            'OK'                  // buttonName
+                                        );
+                                    }, function(jqXHR, textStatus, errorThrown) {
+                                        navigator.notification.alert(
+                                            'Impossibile aggiungere al carrello.',  // message
+                                            null,         // callback
+                                            'Errore',            // title
+                                            'OK'                  // buttonName
+                                        );
+                                        console.log('Errore chiamata ajax!' +
+                                            '\nReponseText: ' + jqXHR.responseText +
+                                            '\nStatus: ' + textStatus +
+                                            '\nError: ' + errorThrown);
+                                    })
+                            }, 
+                            function(XMLHttpRequest, textStatus, errorThrown) {
+
+                                console.log('Errore chiamata ajax!' +
+                                    '\nReponseText: ' + XMLHttpRequest.responseText +
+                                    '\nStatus: ' + JSON.stringify(textStatus) +
+                                    '\nError: ' + JSON.stringify(errorThrown));
+                            })
+                        }
+                        
+                    },
+                    error: function(XMLHttpRequest, textStatus, errorThrown) {
+
+                        console.log('Errore chiamata ajax!' +
+                            '\nReponseText: ' + XMLHttpRequest.responseText +
+                            '\nStatus: ' + JSON.stringify(textStatus) +
+                            '\nError: ' + JSON.stringify(errorThrown));
+                    }
+                })
+
+            }
+            
+        }
 
     });
 

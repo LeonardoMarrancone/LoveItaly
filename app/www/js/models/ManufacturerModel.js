@@ -15,7 +15,7 @@ define(function(require) {
       },
 
       url: function() {
-          var url = 'http://loveitaly.altervista.org/api/manufacturers/';
+          var url = 'http://192.168.56.101/loveitaly/api/manufacturers/';
           url += this.id;
           url += '?io_format=JSON&ws_key=IYI6M35MLB8UVW38Y99RY3YPQWRX5X8H';
           return url;
@@ -25,7 +25,7 @@ define(function(require) {
         let model = this;
         let manufacturer = data.manufacturer;
         $.ajax({
-          url: 'http://loveitaly.altervista.org/api/addresses/'+manufacturer.id+'?io_format=JSON&ws_key=IYI6M35MLB8UVW38Y99RY3YPQWRX5X8H',
+          url: 'http://192.168.56.101/loveitaly/api/addresses/'+manufacturer.id+'?io_format=JSON&ws_key=IYI6M35MLB8UVW38Y99RY3YPQWRX5X8H',
           async: false,
           type: "GET",
           dataType: 'json',

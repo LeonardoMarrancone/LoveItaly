@@ -14,4 +14,8 @@ define({
     products_home: "templates/products-home.html",
     product: "templates/product.html",
     manufacturer: "templates/manufacturer.html",
+    manufacturer_products: "templates/manufacturer-products.html",
+    registration: "templates/registration.html",
+    login: "templates/login.html",
+    cart: "templates/cart.html",
 });

@@ -1,0 +1,32 @@
+<h2 class="manufacturer-name"></h2>
+{{#each this}}
+
+<div class="manufacturer-product container-card">
+
+  <div class="card">
+    <div class="item item-divider product-name"><a href="#product/{{id}}">{{name}}</a></div>
+    <div class="item item-text-wrap product-image">
+      <a href="#product/{{id}}">
+        {{#if id_default_image}}
+        <img src="http://loveitaly.altervista.org/api/images/products/{{id}}/{{id_default_image}}&ws_key=IYI6M35MLB8UVW38Y99RY3YPQWRX5X8H" alt="">
+        {{else}}
+        <img src="img/logo-loveitaly-app.png" alt="">
+        {{/if}}
+      </a>
+    </div>
+    <div class="item item-divider product-desc">
+      <p class="product-price">Prezzo: € {{formatCurrency price}}</p>
+      <div class="row">
+        <div class="col col-50">
+          <button class="button button-green button-buy">Acquista</button>
+        </div>
+        <div class="col col-50">
+          <button class="button button-green button-whislist">Whislist</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{{/each}}
+

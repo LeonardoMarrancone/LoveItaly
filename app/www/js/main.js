@@ -11,7 +11,9 @@ require.config({
     leaflet: '../lib/leaflet/leaflet',
     spin: '../lib/spin/spin.min',
     preloader: '../lib/preloader/pre-loader',
-    utils: '../lib/utils/utils'
+    utils: '../lib/utils/utils',
+    md5: '../lib/md5.min',
+    xml2json: '../lib/xml2json.min',
   },
   shim: {
     'jquery': {

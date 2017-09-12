@@ -1,0 +1,33 @@
+<h2 class="cart-name">Carrello</h2>
+{{#each products as |product|}}
+
+<div class="manufacturer-product container-card">
+
+  <div class="card">
+    <div class="item item-divider product-name"><a href="#product/{{product.id}}">{{product.name}}</a></div>
+    <div class="item item-text-wrap product-image">
+      <a href="#product/{{product.id}}">
+        {{#if product.id_default_image}}
+        <img src="http://loveitaly.altervista.org/api/images/products/{{product.id}}/{{product.id_default_image}}&ws_key=IYI6M35MLB8UVW38Y99RY3YPQWRX5X8H" alt="">
+        {{else}}
+        <img src="img/logo-loveitaly-app.png" alt="">
+        {{/if}}
+      </a>
+    </div>
+    <div class="item item-divider product-desc">
+      <p class="product-price">Prezzo: € {{formatCurrency product.price}}</p>
+      <div class="row">
+        <div class="col col-50 col-update-quantity">
+          <label class="input-label-quantity">Quantità</label>
+          <input type="number" min="1" step="1" value="{{product.quantity}}" class="quantity" data-product-id="{{product.id}}" required="required">
+        </div>
+        <div class="col col-50 col-delete-cart">
+          <button class="button button-red button-delete-from-cart" data-product-id="{{product.id}}">Cancella</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{{/each}}
+

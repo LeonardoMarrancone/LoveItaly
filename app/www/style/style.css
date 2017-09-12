@@ -1,6 +1,43 @@
-body{
-  font-family: Open Sans,Helvetica,sans-serif;
+/* STANDARD FOR MOBILE */
+* {
+  /* transparent link and button selection */
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }
+
+body {
+  -webkit-touch-callout: none;
+  /* no callouts during tap and hold */
+  -webkit-text-size-adjust: none;
+  /* no fonts auto inflation */
+  -webkit-user-select: none;
+  /* no copy and paste, etc. */
+  background-attachment: fixed;
+  font-family: 'Open Sans','HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
+  height: 100%;
+  margin: 0px;
+  padding: 0px;
+  width: 100%; 
+  overflow-y: hidden;
 }
+
+/* END STANDARD MOBILE */
+/* CUSTOM FONTS */
+/* latin */
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Open Sans Regular'), local('OpenSans-Regular'), url(../fonts/OpenSans-Regular.ttf) format('ttf');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;
+}
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Open Sans Bold'), local('OpenSans-Bold'), url(../fonts/OpenSans-Bold.ttf) format('ttf');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;
+}
+/* END CUSTOM FONTS */
+/* START STRUCTURE */
 img {
   max-width: 100%;
   max-height: 100%;
@@ -11,11 +48,59 @@ img {
 .no-margin{
   margin: 0;
 }
+#main-menu{
+  z-index: 100;
+  transform: translateX(-100%);
+  -webkit-transition: -webkit-transform .3s ease;
+  transition: transform .3s ease;
+}
+#main-menu.opened{
+  transform: translateX(0%);
+}
+.menu-content{
+  -webkit-transition: -webkit-transform .3s ease;
+  transition: transform .3s ease;
+}
+.menu-content.menu-opened{
+  transform: translateX(275px);
+}
+.menu-content.menu-opened .scroll-view.scroll-x{
+  overflow-x: hidden;
+}
+#main-menu > .list > .item{
+  padding: 0;
+}
+#main-menu > .list > .item > a{
+  padding: 16px;
+  display: block;
+  text-decoration: none;
+  color: #439933;
+  font-weight: bold;
+}
+.overlay-menu{
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  opacity: 0;
+  background: rgba(0,0,0,.45);
+  -webkit-transition: opacity .3s ease;
+  transition: opacity .3s ease;
+}
+.overlay-menu.active{
+  opacity: 1;
+  z-index: 99;
+}
 .bar-header{
   background-color: #439933;
 }
-.bar-header .ion-navicon, #back{
+.bar-header .ion-navicon{
   color: #fff;
+}
+#back{
+  color: #a21c26;
 }
 #back, #toggle-menu{
   display: none;
@@ -47,6 +132,9 @@ img {
 }
 .main-content{
   top: 88px;
+}
+.main-content.menu-opened{
+  overflow-y: hidden;
 }
 .main-content .slider{
   height: 250px; 
@@ -144,17 +232,29 @@ img {
 .button-green:focus, .button-green:active, .button-green:hover{
   color: #fff;
 }
-.single-product .product-name, .single-manufacturer .manufacturer-name{
+.button-red{
+  background-color: #a21c26; 
+  color: #fff;
+  font-weight: bold; 
+  height: 2.3em; 
+  line-height: 35px; 
+  min-height: initial; 
+  min-width: initial;
+}
+.button-red:focus, .button-red:active, .button-red:hover{
+  color: #fff;
+}
+.single-product .product-name, .single-manufacturer .manufacturer-name, h2.manufacturer-name{
   margin: 5px;
 }
-.single-product .container-card .card, .single-manufacturer .container-card .card{
+.single-product .container-card .card, .single-manufacturer .container-card .card, .manufacturer-product .card{
   margin-top: 0;
 }
 .single-product .product-image{
   padding: 5px; 
   text-align: center;
 }
-.single-product .product-image img{
+.product-image img{
   border-radius: 10px;
 }
 .single-product .product-slider-image{
@@ -216,4 +316,20 @@ img {
   position: relative;
   top: -3px;
   left: -5px;
+}
+.col-update-quantity{
+  text-align: center;
+}
+.col-update-quantity input{
+  max-width: 100%;
+  text-align: center;
+}
+.col-delete-cart{
+  position: relative;
+}
+.button-delete-from-cart{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateY(-50%) translateX(-50%);
 }
