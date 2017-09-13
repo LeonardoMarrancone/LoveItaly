@@ -66,14 +66,17 @@ require(['backbone', 'utils'], function(Backbone, Utils) {
 
           router.on('route', function(route, params) {
 
-            if(route == 'showStructure' || route == 'home') {
-              $('#toggle-menu').addClass('active');
-              $('#back.active').removeClass('active');
+            if (device.platform != "Android") {
+              if(route == 'showStructure' || route == 'home') {
+                $('#toggle-menu').addClass('active');
+                $('#back.active').removeClass('active');
+              }
+              else {
+                $('#toggle-menu.active').removeClass('active');
+                $('#back').addClass('active');
+              }
             }
-            else {
-              $('#toggle-menu.active').removeClass('active');
-              $('#back').addClass('active');
-            }
+
           })
           
           Backbone.history.start();

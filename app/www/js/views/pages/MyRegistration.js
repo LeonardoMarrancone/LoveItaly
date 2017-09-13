@@ -35,7 +35,7 @@ define(function(require) {
             let passwd = $(".password").val().trim();
             let repeat_passwd = $(".repeat-password").val().trim();
             let firstname = $(".firstname").val().trim();
-            let lastname = $(".surname").val().trim();
+            let lastname = $(".lastname").val().trim();
 
             if(!email || !passwd || !repeat_passwd || !firstname || !lastname || (passwd != repeat_passwd)) {
                 navigator.notification.alert(
@@ -59,6 +59,7 @@ define(function(require) {
                     xml.find('passwd').html(passwd);
                     xml.find('firstname').html(firstname);
                     xml.find('lastname').html(lastname);
+                    xml.find('active').html(1);
                     var contact = '<?xml version="1.0" encoding="UTF-8"?><prestashop xmlns:xlink="http://www.w3.org/1999/xlink">' + xml.html() + '</prestashop>';
                     
                     $.ajax({

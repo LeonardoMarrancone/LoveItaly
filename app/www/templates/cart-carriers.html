@@ -1,0 +1,19 @@
+<h2>Spedizione</h2>
+<p class="padding">Seleziona il corriere</p>
+<div class="list">
+  {{#each this}}
+  <label class="item item-radio">
+    <input type="radio" name="carrier" class="carrier" value="{{id}}">
+    <div class="radio-content">
+      <div class="item-content">
+        {{name}}<br><small>Giorni: {{delay}}</small>
+      </div>
+      <i class="radio-icon ion-checkmark"></i>
+    </div>
+  </label>
+  {{/each}}
+</div>
+
+<div class="padding choose-payments">
+  <a class="button button-block button-green">Vai al Pagamento</a>
+</div>

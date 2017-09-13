@@ -7,7 +7,6 @@ define(function(require) {
 
     var ProductsModel = require("models/ProductsModel");
     var ProductsCollection = require("collections/ProductsCollection");
-    var RandomProductsModel = require("models/RandomProductsModel");
     var RandomProductsCollection = require("collections/RandomProductsCollection");
     var CartModel = require("models/CartModel");
 

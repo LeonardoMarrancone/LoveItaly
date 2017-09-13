@@ -37,9 +37,23 @@ define(function(require) {
                         let cart = model.toJSON();
                         
                         if (cart.associations && cart.associations.cart_rows && cart.associations.cart_rows.length > 0) {
+
                             let cart_html = page.template(cart);
                             cart_html = Handlebars.compile(cart_html)();
                             $('#content').html(cart_html);
+
+                            let total_price = 0.00;
+                            for(let i = 0, length1 = cart.products.length; i < length1; i++){
+                                let product = cart.products[i];
+                                let price = parseFloat(product.price);
+                                total_price += price;
+                            }
+                            total_price = total_price.toFixed(2)
+                            
+                            $('.total-price').html(total_price);
+
+                            $('.empty-cart').css('display', 'none');
+                            $('.footer-cart').css('display', 'block');
 
                             $('.quantity').on('change', function(){
 
@@ -86,7 +100,11 @@ define(function(require) {
                             })
                         }
                         else {
-                            $('#content').html('<p>Il carrello è vuoto!</p>');
+                            let cart_html = page.template(cart);
+                            cart_html = Handlebars.compile(cart_html)();
+                            $('#content').html(cart_html);
+                            $('.footer-cart').css('display', 'none');
+                            $('.empty-cart').css('display', 'block');
                         }
 
                             

@@ -14,6 +14,11 @@ define(function(require) {
       // load the precompiled template
       this.template = Utils.templates.structure;
       this.on("inTheDOM", () => {
+
+        $(document).on("offline", this.setOfflineMode, false);
+
+        $(document).on("online", this.setOnlineMode, false);
+
         if (localStorage.getItem('logged') == "true") {
           $('#main-menu .logout, #main-menu .profile, #main-menu .orders').css('display', 'block');
           $('#main-menu .login, #main-menu .registration').css('display', 'none');
@@ -34,7 +39,7 @@ define(function(require) {
       'back #back': 'goBack',
       'tap #toggle-menu': 'openMenu',
       'swipeLeft .overlay-menu, #main-menu': 'closeMenu',
-      'swipeRight .main-content': 'openMenu',
+      //'swipeRight .main-content': 'openMenu',
       'tap .overlay-menu': 'closeMenu',
       'tap #main-menu > .list > .item a': 'closeMenuAndGoTo',
       'tap .logout': 'logout',
@@ -95,6 +100,16 @@ define(function(require) {
     // generic go-back function
     goBack: function() {
       window.history.back();
+    },
+
+    setOnlineMode: function(e){
+      $('body').addClass('online-mode');
+      $('body').removeClass('offline-mode');
+    },
+
+    setOfflineMode: function(e){
+      $('body').addClass('offline-mode');
+      $('body').removeClass('online-mode');
     },
 
   });

@@ -174,7 +174,71 @@ define(function(require) {
             success: successCallback,
             error: errorCallback,
         })
-      }
+      },
+
+      setAddresses: function(model, address_delivery, address_invoice, successCallback, errorCallback){
+
+        let cart_model = model.toJSON();
+
+        cart_model.id_address_delivery = address_delivery.id
+        cart_model.id_address_invoice = address_invoice.id
+
+        let cart_model_clone = _.clone(cart_model)
+        delete cart_model_clone.products
+        delete cart_model_clone.user_id
+
+        let xml = xml2json.json2xml_str(cart_model_clone)
+        let div = $('<div />');
+        $(div).html(xml);
+        $(div).find('cart_rows').wrapAll('<cart_rows />');
+
+        xml = '<?xml version="1.0" encoding="UTF-8"?><prestashop xmlns:xlink="http://www.w3.org/1999/xlink"><cart>' + $(div).html() + '</cart></prestashop>';
+
+        $.ajax({
+            url: 'http://192.168.56.101/loveitaly/api/carts/',
+            async: true,
+            type: "PUT",
+            dataType: 'xml',
+            contentType: "text/xml",
+            headers: {
+                "Authorization": 'Basic SVlJNk0zNU1MQjhVVlczOFk5OVJZM1lQUVdSWDVYOEg6'
+            },
+            data: xml,
+            success: successCallback,
+            error: errorCallback,
+        })
+      },
+
+      setCarrier: function(model, carrier, successCallback, errorCallback){
+        let cart_model = model.toJSON();
+
+        cart_model.id_carrier = carrier.id
+
+        let cart_model_clone = _.clone(cart_model)
+        delete cart_model_clone.products
+        delete cart_model_clone.user_id
+
+        let xml = xml2json.json2xml_str(cart_model_clone)
+        let div = $('<div />');
+        $(div).html(xml);
+        $(div).find('cart_rows').wrapAll('<cart_rows />');
+
+        xml = '<?xml version="1.0" encoding="UTF-8"?><prestashop xmlns:xlink="http://www.w3.org/1999/xlink"><cart>' + $(div).html() + '</cart></prestashop>';
+
+        $.ajax({
+            url: 'http://192.168.56.101/loveitaly/api/carts/',
+            async: true,
+            type: "PUT",
+            dataType: 'xml',
+            contentType: "text/xml",
+            headers: {
+                "Authorization": 'Basic SVlJNk0zNU1MQjhVVlczOFk5OVJZM1lQUVdSWDVYOEg6'
+            },
+            data: xml,
+            success: successCallback,
+            error: errorCallback,
+        })
+      },
   });
 
   return CartModel;

@@ -9,7 +9,12 @@ define(function(require) {
   var MyManufacturerProducts = require("views/pages/MyManufacturerProducts");
   var MyRegistration = require("views/pages/MyRegistration");
   var MyLogin = require("views/pages/MyLogin");
+  var MyProfile = require("views/pages/MyProfile");
+  var MyOrders = require("views/pages/MyOrders");
+  var MyOrder = require("views/pages/MyOrder");
   var MyCart = require("views/pages/MyCart");
+  var MyCartCarriers = require("views/pages/MyCartCarriers");
+  var MyCartPayments = require("views/pages/MyCartPayments");
 
   var AppRouter = Backbone.Router.extend({
 
@@ -24,7 +29,12 @@ define(function(require) {
       "manufacturer-products/:id": "manufacturer_products",
       "registration": "registration",
       "login": "login",
+      "profile": "profile",
+      "orders": "orders",
+      "order/:id": "order",
       "cart": "cart",
+      "cart-carriers": "cart_carriers",
+      "cart-payments": "cart_payments"
     },
 
     firstView: "home",
@@ -68,9 +78,44 @@ define(function(require) {
       this.changePage(page);
     },
 
+    profile: function(){
+      // create the view
+      var page = new MyProfile();
+      // show the view
+      this.changePage(page);
+    },
+
+    orders: function(){
+      // create the view
+      var page = new MyProfile();
+      // show the view
+      this.changePage(page);
+    },
+
+    order: function(){
+      // create the view
+      var page = new MyOrders();
+      // show the view
+      this.changePage(page);
+    },
+
     cart: function(){
       // create the view
       var page = new MyCart();
+      // show the view
+      this.changePage(page);
+    },
+
+    cart_carriers: function(){
+      // create the view
+      var page = new MyCartCarriers();
+      // show the view
+      this.changePage(page);
+    },
+
+    cart_payments: function(){
+      // create the view
+      var page = new MyCartPayments();
       // show the view
       this.changePage(page);
     },
