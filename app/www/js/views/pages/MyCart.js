@@ -36,7 +36,7 @@ define(function(require) {
 
                         let cart = model.toJSON();
                         
-                        if (cart.associations && cart.associations.cart_rows && cart.associations.cart_rows.length > 0) {
+                        if (cart.products && cart.products.length > 0) {
 
                             let cart_html = page.template(cart);
                             cart_html = Handlebars.compile(cart_html)();

@@ -23,4 +23,5 @@ define({
     cart: "templates/cart.html",
     cart_carriers: "templates/cart-carriers.html",
     cart_payments: "templates/cart-payments.html",
+    search: "templates/search.html",
 });

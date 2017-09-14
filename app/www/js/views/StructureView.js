@@ -43,6 +43,7 @@ define(function(require) {
       'tap .overlay-menu': 'closeMenu',
       'tap #main-menu > .list > .item a': 'closeMenuAndGoTo',
       'tap .logout': 'logout',
+      'submit .search-form': 'search',
     },
 
     openMenu: function(e){
@@ -110,6 +111,24 @@ define(function(require) {
     setOfflineMode: function(e){
       $('body').addClass('offline-mode');
       $('body').removeClass('online-mode');
+    },
+
+    search: function(e) {
+      e.preventDefault();
+
+      let product_name = $('.search-form .product-name').val().trim();
+
+      let id_category = ($('.catergory-container .categories').length > 0) ? $('.catergory-container .categories').val().trim() : '';
+  
+      if (id_category) {
+        Backbone.history.navigate('search/'+product_name+"/"+id_category, {trigger: true});
+      }
+      else {
+        Backbone.history.navigate('search/'+product_name, {trigger: true});  
+      }
+      
+
+      return false;
     },
 
   });

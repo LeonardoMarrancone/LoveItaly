@@ -34,6 +34,11 @@ define(function(require) {
             for(let i = 0, length1 = cart.associations.cart_rows.length; i < length1; i++){
 
               let product = cart.associations.cart_rows[i];
+
+              if (product.id_product == 0) {
+                continue;
+              }
+
               let product_model = new ProductModel({
                 id: product.id_product
               })
@@ -215,11 +220,17 @@ define(function(require) {
         let cart_model_clone = _.clone(cart_model)
         delete cart_model_clone.products
         delete cart_model_clone.user_id
+        delete cart_model_clone.total_price;
+        delete cart_model_clone.address_delivery;
+        delete cart_model_clone.address_invoice;
 
         let xml = xml2json.json2xml_str(cart_model_clone)
         let div = $('<div />');
         $(div).html(xml);
-        $(div).find('cart_rows').wrapAll('<cart_rows />');
+
+        if(cart_model_clone.associations.cart_rows.length > 0){
+          $(div).find('cart_rows').wrapAll('<cart_rows />');
+        }
 
         xml = '<?xml version="1.0" encoding="UTF-8"?><prestashop xmlns:xlink="http://www.w3.org/1999/xlink"><cart>' + $(div).html() + '</cart></prestashop>';
 

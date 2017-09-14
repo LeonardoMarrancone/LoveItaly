@@ -15,6 +15,7 @@ define(function(require) {
   var MyCart = require("views/pages/MyCart");
   var MyCartCarriers = require("views/pages/MyCartCarriers");
   var MyCartPayments = require("views/pages/MyCartPayments");
+  var MySearch = require("views/pages/MySearch");
 
   var AppRouter = Backbone.Router.extend({
 
@@ -34,7 +35,9 @@ define(function(require) {
       "order/:id": "order",
       "cart": "cart",
       "cart-carriers": "cart_carriers",
-      "cart-payments": "cart_payments"
+      "cart-payments": "cart_payments",
+      "search/:product_name": "search",
+      "search/:product_name/:id_category": "search",
     },
 
     firstView: "home",
@@ -118,6 +121,16 @@ define(function(require) {
     cart_payments: function(){
       // create the view
       var page = new MyCartPayments();
+      // show the view
+      this.changePage(page);
+    },
+
+    search: function(product_name, id_category){
+      // create the view
+      var page = new MySearch({
+        product_name: product_name,
+        id_category: id_category,
+      });
       // show the view
       this.changePage(page);
     },

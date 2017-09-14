@@ -109,10 +109,10 @@ define(function(require) {
                                         'Errore',            // title
                                         'OK'                  // buttonName
                                     );
-                                    // console.log('Errore chiamata ajax!' +
-                                    //     '\nReponseText: ' + jqXHR.responseText +
-                                    //     '\nStatus: ' + textStatus +
-                                    //     '\nError: ' + errorThrown);
+                                    console.log('Errore chiamata ajax!' +
+                                        '\nReponseText: ' + jqXHR.responseText +
+                                        '\nStatus: ' + textStatus +
+                                        '\nError: ' + errorThrown);
                                 })
                         }
                         else {

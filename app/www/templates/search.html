@@ -1,0 +1,51 @@
+<div class="catergory-container list no-padding">
+  <label class="item item-input item-select">
+    <div class="input-label">
+      Categoria
+    </div>
+    <select class="categories" name="categories">
+      <option value="">-- Categorie --</option>
+      {{#each categories as |category|}}
+      <option value="{{category.id}}">{{category.name}}</option>
+      {{/each}}
+    </select>
+  </label>
+</div>
+
+<h2>Ricerca</h2>
+<small class="padding search-result-number-container">Prodotti trovati: <span class="search-result-number"></span></small>
+{{#each products as |product|}}
+<div class="search-product container-card">
+
+  <div class="card">
+    <div class="item item-divider product-name"><a href="#product/{{product.id}}">{{product.name}}</a></div>
+    <div class="item item-text-wrap product-image">
+      <a href="#product/{{id}}">
+        {{#if product.id_default_image}}
+        <img src="http://loveitaly.altervista.org/api/images/products/{{product.id}}/{{product.id_default_image}}&ws_key=IYI6M35MLB8UVW38Y99RY3YPQWRX5X8H" alt="">
+        {{else}}
+        <img src="img/logo-loveitaly-app.png" alt="">
+        {{/if}}
+      </a>
+    </div>
+    <div class="item item-divider product-desc">
+      <p class="product-price">Prezzo: € {{formatCurrency product.price}}</p>
+      <p>
+        {{#if product.manufacturer_name}}
+          {{product.manufacturer_name}}
+        {{/if}}
+      </p>
+      <div class="row">
+        <div class="col col-50">
+          <button class="button button-green button-buy" data-product-id="{{product.id}}">Acquista</button>
+        </div>
+        <div class="col col-50">
+          <button class="button button-green button-whislist" data-product-id="{{product.id}}">Whislist</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{{/each}}
+
+<p class="padding empty-search">Nessun prodotto trovato!</p>

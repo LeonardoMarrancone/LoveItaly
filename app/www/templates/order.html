@@ -14,7 +14,7 @@
 <ul class="list order-product-list">
   {{#each products as |product|}}
   <li class="item item-thumbnail-left">
-    {{#if id_default_image}}
+    {{#if product.id_default_image}}
     <img src="http://loveitaly.altervista.org/api/images/products/{{product.id}}/{{product.id_default_image}}&ws_key=IYI6M35MLB8UVW38Y99RY3YPQWRX5X8H" alt="">
     {{else}}
     <img src="img/logo-loveitaly-app.png" alt="">

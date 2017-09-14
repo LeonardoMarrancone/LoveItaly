@@ -2,76 +2,69 @@ define(function(require) {
 
     var $ = require("jquery");
     var Backbone = require("backbone");
+    var _ = require("underscore");
     var Utils = require("utils");
     var Handlebars = require("handlebars");
 
-    var ProductsModel = require("models/ProductsModel");
-    var ProductsCollection = require("collections/ProductsCollection");
-    var RandomProductsCollection = require("collections/RandomProductsCollection");
+    var CategoriesCollection = require("collections/CategoriesCollection");
+    var SearchProductsCollection = require("collections/SearchProductsCollection");
     var CartModel = require("models/CartModel");
 
-    var MyHome = Utils.Page.extend({
+    var MySearch = Utils.Page.extend({
 
-        constructorName: "MyHome",
+        constructorName: "MySearch",
 
         initialize: function(options) {
             // load the precompiled template
-            this.home_template = Utils.templates.home;
-            this.products_home_template = Utils.templates.products_home;
+            this.template = Utils.templates.search;
+            this.collection = new SearchProductsCollection({
+                product_name: options.product_name,
+                id_category: options.id_category
+            });
+
+            this.categoriesCollection = new CategoriesCollection();
 
         },
 
-        id: "Myhome",
-        className: "",
-        model: ProductsModel,
-        collection: ProductsCollection,
+        id: "MySearch",
 
         render: function() {
-            var MyHomeCollection = new ProductsCollection();
-
-            $('#content').html($(this.el).html(this.home_template()));
-
             var page = this;
-            MyHomeCollection.fetch({
-                success: function(collection, response, options) {
-                    let prodotti = collection.toJSON();
 
-                    let products_html = page.products_home_template( [prodotti.slice(0, 7), prodotti.slice(7)] );
-                    products_html = Handlebars.compile(products_html)();
-                    $('#new-products').html(products_html);
-                    $('.main-content').scrollTop(0, 0);
+            this.collection.fetch({
+                success: function(products_collection, response, options) {
+                    let products = products_collection.toJSON();
 
-                    $('.button-buy').on('tap', page.addCart);
-                },
-                error: function(XMLHttpRequest, textStatus, errorThrown) {
-                    console.log('Errore chiamata ajax!' +
-                        '\nReponseText: ' + XMLHttpRequest.responseText +
-                        '\nStatus: ' + textStatus +
-                        '\nError: ' + errorThrown);
-                }
-            });
+                    page.categoriesCollection.fetch({
+                        success: function(categories_collection, response, options) {
+                            let categories = categories_collection.toJSON();
 
-            $.ajax({
-                url: 'http://192.168.56.101/loveitaly/api/categories/?display=[id]&io_format=JSON&ws_key=IYI6M35MLB8UVW38Y99RY3YPQWRX5X8H',
-                async: true,
-                type: "GET",
-                dataType: 'json',
-                success: function(data) {
-                    let id_categories = data.categories.map(function(item, index) {
-                        return item.id;
-                    })
+                            let search_html = page.template( {
+                                products: products,
+                                categories: categories,
+                            } );
 
-                    var MyRandomHomeCollection = new RandomProductsCollection(id_categories);
+                            if (products && products.length > 0) {
 
-                    MyRandomHomeCollection.fetch({
-                        success: function(collection, response, options) {
-                            let prodotti = collection.toJSON();
+                                search_html = Handlebars.compile(search_html)();
 
-                            let products_html = page.products_home_template( [prodotti.slice(0, 7), prodotti.slice(7, 14), prodotti.slice(14)] );
-                            products_html = Handlebars.compile(products_html)();
-                            $('#showcase-products').html(products_html);
+                                $('#content').html(search_html);
+                                $('.main-content').scrollTop(0, 0);
+                                $('.button-buy').on('tap', page.addCart);
+                                $('.search-result-number-container').css('display', 'block');
+                                $('.search-result-number').html(products.length);
+                            }
+                            else {
+                                search_html = Handlebars.compile(search_html)();
+                                $('#content').html(search_html);
+                                $('.main-content').scrollTop(0, 0);
+                                $('.search-result-number-container').css('display', 'none');
+                                $('.empty-search').css('display', 'block');
+                            }
 
-                            $('.button-buy').on('tap', page.addCart);
+                            if (page.collection.id_category) {
+                                $('.catergory-container .categories').val(page.collection.id_category);
+                            }
 
                         },
                         error: function(XMLHttpRequest, textStatus, errorThrown) {
@@ -80,7 +73,7 @@ define(function(require) {
                                 '\nStatus: ' + textStatus +
                                 '\nError: ' + errorThrown);
                         }
-                    });
+                    })
                 },
                 error: function(XMLHttpRequest, textStatus, errorThrown) {
                     console.log('Errore chiamata ajax!' +
@@ -88,9 +81,7 @@ define(function(require) {
                         '\nStatus: ' + textStatus +
                         '\nError: ' + errorThrown);
                 }
-            })
-
-                    
+            });
 
         },
 
@@ -182,6 +173,6 @@ define(function(require) {
 
     });
 
-    return MyHome;
+    return MySearch;
 
 });
