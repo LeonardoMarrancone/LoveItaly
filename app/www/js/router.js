@@ -87,14 +87,16 @@ define(function(require) {
 
     orders: function(){
       // create the view
-      var page = new MyProfile();
+      var page = new MyOrders();
       // show the view
       this.changePage(page);
     },
 
-    order: function(){
+    order: function(id){
       // create the view
-      var page = new MyOrders();
+      var page = new MyOrder({
+        id: id
+      });
       // show the view
       this.changePage(page);
     },

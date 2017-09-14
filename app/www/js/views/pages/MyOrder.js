@@ -15,6 +15,12 @@ define(function(require) {
             // load the precompiled template
             this.template = Utils.templates.order;
 
+            if (localStorage.getItem('logged') == "true") {
+                this.user_id = localStorage.getItem('user_id');
+                this.model = new OrderModel({
+                    id: options.id
+                });
+            }
         },
 
         id: "order",
@@ -22,29 +28,25 @@ define(function(require) {
         render: function() {
 
             let page = this;
-                
-            // let orderModel = new OrderModel({
-            //     id: 0
-            // });
 
-            // orderModel.fetch({
-            //     success: function(model, response, options) {
-            //         let order = model.toJSON();
-            //         let order_html = page.template(order);
-            //         order_html = Handlebars.compile(order_html)();
-            //         $('#content').html(order_html);
+            this.model.fetch({
+                success: function(order) {
+                    
+                    let order_html = page.template(order);
+                    order_html = Handlebars.compile(order_html)();
+                    $('#content').html(order_html);
 
-            //         $('.main-content').scrollTop(0, 0);
+                    $('.main-content').scrollTop(0, 0);
 
                     
-            //     },
-            //     error: function(XMLHttpRequest, textStatus, errorThrown) {
-            //         console.log('Errore chiamata ajax!' +
-            //             '\nReponseText: ' + XMLHttpRequest.responseText +
-            //             '\nStatus: ' + textStatus +
-            //             '\nError: ' + errorThrown);
-            //     }
-            // });
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown) {
+                    console.log('Errore chiamata ajax!' +
+                        '\nReponseText: ' + XMLHttpRequest.responseText +
+                        '\nStatus: ' + textStatus +
+                        '\nError: ' + errorThrown);
+                }
+            });
 
         },
 

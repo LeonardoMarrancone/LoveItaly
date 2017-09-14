@@ -1,0 +1,30 @@
+<h2>Ordine</h2>
+<ul class="list order-info-list">
+  <li class="item">
+    Data:<span class="item-note">{{date_upd}}</span>
+  </li>
+  <li class="item">
+    Metodo di Pagamento:<span class="item-note">{{payment}}</span>
+  </li>
+  <li class="item">
+    Costo totale:<span class="item-note total-price">€ {{total_price}}</span>
+  </li>
+</ul>
+<h2>Lista prodotti</h2>
+<ul class="list order-product-list">
+  {{#each products as |product|}}
+  <li class="item item-thumbnail-left">
+    {{#if id_default_image}}
+    <img src="http://loveitaly.altervista.org/api/images/products/{{product.id}}/{{product.id_default_image}}&ws_key=IYI6M35MLB8UVW38Y99RY3YPQWRX5X8H" alt="">
+    {{else}}
+    <img src="img/logo-loveitaly-app.png" alt="">
+    {{/if}}
+    <h2>{{product.name}}</h2>
+    <p>Prezzo: <span class="product-price">€ {{formatCurrency product.price}}</span></p>
+    <p>Quantità: {{product.quantity}}</p>
+  </li>
+  {{/each}}
+</ul>
+
+
+

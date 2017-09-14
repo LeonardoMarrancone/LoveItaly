@@ -19,6 +19,7 @@ define({
     login: "templates/login.html",
     profile: "templates/profile.html",
     orders: "templates/orders.html",
+    order: "templates/order.html",
     cart: "templates/cart.html",
     cart_carriers: "templates/cart-carriers.html",
     cart_payments: "templates/cart-payments.html",

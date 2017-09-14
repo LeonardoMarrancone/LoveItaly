@@ -109,7 +109,7 @@ define(function(require) {
                             cart_model.setAddresses(cart_model, user.address_delivery, user.address_invoice, 
 
                                 function(){
-
+                                    
                                     let id_carrier = parseInt($('input[name=carrier]:checked').val())
                                     let carrier = {
                                         id: id_carrier

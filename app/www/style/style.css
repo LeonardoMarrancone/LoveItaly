@@ -333,7 +333,7 @@ img {
   left: 50%;
   transform: translateY(-50%) translateX(-50%);
 }
-.empty-cart, .empty-orders, .footer-cart, .choose-payments{
+.empty-cart, .empty-orders, .footer-cart, .choose-payments, .send-order{
   display: none;
 }
 #profile-form input[disabled]{
@@ -380,4 +380,17 @@ body.offline-mode .container-offline-mode{
   font-size: 1.3em;
   background: rgba(18, 127, 63, 0.8);
 }
-
+.order-info-list .item-note{
+  color: #333;
+}
+.order-info-list .item-note.total-price, .order-product-list .item .product-price{
+  font-weight: bold;
+  font-size: 1em;
+}
+.order-product-list .item, .order-product-list .item h2{
+  white-space: normal;
+}
+.order-product-list .item h2{
+  text-align: left;
+  font-size: 1em;
+}

@@ -7,8 +7,20 @@ define(function(require) {
         constructorName: "OrderCollection",
         model: OrderModel,
         fetch: function(options){
-            options.success(localStorage.getItem('orders'))
-            options.error({}, {}, {})
+            let orders = JSON.parse(localStorage.getItem('orders'));
+            if (!orders) {
+                orders = [];
+            }
+            options.success(orders)
+            //options.error({}, {}, {})
+        },
+        addOrder: function(order) {
+            let orders = JSON.parse(localStorage.getItem('orders'));
+            if (!orders) {
+                orders = [];
+            }
+            orders.unshift(order);
+            localStorage.setItem('orders', JSON.stringify(orders));
         }
     });
 

@@ -24,20 +24,27 @@ define(function(require) {
       parse: function(data) {
 
         if (!(Array.isArray(data))) {
+
           let cart = data.carts[0];
           cart.products = []
+          cart.total_price = 0;
+
           if (cart.associations && cart.associations.cart_rows && cart.associations.cart_rows.length > 0) {
+
             for(let i = 0, length1 = cart.associations.cart_rows.length; i < length1; i++){
+
               let product = cart.associations.cart_rows[i];
               let product_model = new ProductModel({
                 id: product.id_product
               })
+
               product_model.fetch({
                 async: false,
                 success: function(model){
                   let p = model.toJSON()
-                  p.quantity = product.quantity
-                  cart.products.push(p)
+                  p.quantity = product.quantity;
+                  cart.products.push(p);
+                  cart.total_price =  parseFloat(cart.total_price) + (parseFloat(p.price) * parseInt(p.quantity));
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
                   console.log('Errore chiamata ajax!' +
@@ -46,6 +53,61 @@ define(function(require) {
                     '\nError: ' + errorThrown);
                 }
               })
+
+              cart.total_price = parseFloat(cart.total_price).toFixed(2)
+
+              if (parseInt(cart.id_address_delivery) > 0) {
+                $.ajax({
+                  url: 'http://192.168.56.101/loveitaly/api/addresses/'+cart.id_address_delivery+'&io_format=JSON&ws_key=IYI6M35MLB8UVW38Y99RY3YPQWRX5X8H',
+                  async: false,
+                  type: "GET",
+                  dataType: 'json',
+                  success: (data, textStatus, jqXHR) => {
+                    
+                    if(data.id) {
+                      cart.address_delivery = {
+                        id: data.id,
+                        address: data.address1,
+                        city: data.city
+                      }
+                    }
+                    
+                  },
+                  error: function(jqXHR, textStatus, errorThrown){
+                    console.log('Errore chiamata ajax!' +
+                      '\nReponseText: ' + jqXHR.responseText +
+                      '\nStatus: ' + textStatus +
+                      '\nError: ' + errorThrown);
+                  },
+                })
+              }
+
+              if (parseInt(cart.id_address_invoice) > 0) {
+                $.ajax({
+                  url: 'http://192.168.56.101/loveitaly/api/addresses/'+cart.id_address_invoice+'&io_format=JSON&ws_key=IYI6M35MLB8UVW38Y99RY3YPQWRX5X8H',
+                  async: false,
+                  type: "GET",
+                  dataType: 'json',
+                  success: (data, textStatus, jqXHR) => {
+                    
+                    if(data.id) {
+                      cart.address_invoice = {
+                        id: data.id,
+                        address: data.address1,
+                        city: data.city
+                      }
+                    }
+                    
+                  },
+                  error: function(jqXHR, textStatus, errorThrown){
+                    console.log('Errore chiamata ajax!' +
+                      '\nReponseText: ' + jqXHR.responseText +
+                      '\nStatus: ' + textStatus +
+                      '\nError: ' + errorThrown);
+                  },
+                })
+              }
+                
             }
           }
 
@@ -180,14 +242,17 @@ define(function(require) {
 
         let cart_model = model.toJSON();
 
-        cart_model.id_address_delivery = address_delivery.id
-        cart_model.id_address_invoice = address_invoice.id
+        cart_model.id_address_delivery = address_delivery.id;
+        cart_model.id_address_invoice = address_invoice.id;
 
-        let cart_model_clone = _.clone(cart_model)
-        delete cart_model_clone.products
-        delete cart_model_clone.user_id
+        let cart_model_clone = _.clone(cart_model);
+        delete cart_model_clone.products;
+        delete cart_model_clone.user_id;
+        delete cart_model_clone.total_price;
+        delete cart_model_clone.address_delivery;
+        delete cart_model_clone.address_invoice;
 
-        let xml = xml2json.json2xml_str(cart_model_clone)
+        let xml = xml2json.json2xml_str(cart_model_clone);
         let div = $('<div />');
         $(div).html(xml);
         $(div).find('cart_rows').wrapAll('<cart_rows />');
@@ -195,7 +260,7 @@ define(function(require) {
         xml = '<?xml version="1.0" encoding="UTF-8"?><prestashop xmlns:xlink="http://www.w3.org/1999/xlink"><cart>' + $(div).html() + '</cart></prestashop>';
 
         $.ajax({
-            url: 'http://192.168.56.101/loveitaly/api/carts/',
+            url: 'http://192.168.56.101/loveitaly/api/carts',
             async: true,
             type: "PUT",
             dataType: 'xml',
@@ -217,6 +282,9 @@ define(function(require) {
         let cart_model_clone = _.clone(cart_model)
         delete cart_model_clone.products
         delete cart_model_clone.user_id
+        delete cart_model_clone.total_price
+        delete cart_model_clone.address_delivery
+        delete cart_model_clone.address_invoice
 
         let xml = xml2json.json2xml_str(cart_model_clone)
         let div = $('<div />');

@@ -13,10 +13,18 @@ define(function(require) {
       },
 
       fetch: function(options){
-        let orders = localStorage.getItem('orders');
-        let order = orders[this.id]
-        options.success(order)
-        options.error({}, {}, {})
+        let orders = JSON.parse(localStorage.getItem('orders'));
+
+        let order = _.find(orders, (item) => {
+          return item.id == this.id;
+        })
+
+        if (order) {
+          options.success(order);
+        } 
+        else {
+          options.error({}, {}, {});
+        }
       },
       
   });

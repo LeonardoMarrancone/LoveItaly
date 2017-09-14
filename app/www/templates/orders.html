@@ -1,9 +1,9 @@
 <h2>I Miei Ordini</h2>
 <div class="list">
   {{#each this}}
-    <a class="item item-icon-left" href="#order/{{id}}">
+    <a class="item item-icon-left item-icon-right" href="#order/{{id}}">
       <i class="icon ion-android-calendar"></i>
-      {{date}}
+      ID: {{id}} - {{date_upd}}
       <i class="icon ion-arrow-right-c"></i>
     </a>
   {{/each}}

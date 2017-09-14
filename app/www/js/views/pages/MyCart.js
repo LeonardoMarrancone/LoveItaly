@@ -41,16 +41,8 @@ define(function(require) {
                             let cart_html = page.template(cart);
                             cart_html = Handlebars.compile(cart_html)();
                             $('#content').html(cart_html);
-
-                            let total_price = 0.00;
-                            for(let i = 0, length1 = cart.products.length; i < length1; i++){
-                                let product = cart.products[i];
-                                let price = parseFloat(product.price);
-                                total_price += price;
-                            }
-                            total_price = total_price.toFixed(2)
                             
-                            $('.total-price').html(total_price);
+                            $('.total-price').html(cart.total_price);
 
                             $('.empty-cart').css('display', 'none');
                             $('.footer-cart').css('display', 'block');
@@ -62,7 +54,9 @@ define(function(require) {
 
                                 page.model.updateCart({
                                         id: product_id
-                                    }, quantity, model, true, function(){}, function(jqXHR, textStatus, errorThrown) {
+                                    }, quantity, model, true, function(){
+                                        page.render();
+                                    }, function(jqXHR, textStatus, errorThrown) {
                                         console.log('Errore chiamata ajax!' +
                                             '\nReponseText: ' + jqXHR.responseText +
                                             '\nStatus: ' + textStatus +
