@@ -38,6 +38,7 @@ body {
 }
 /* END CUSTOM FONTS */
 /* START STRUCTURE */
+
 img {
   max-width: 100%;
   max-height: 100%;
@@ -47,6 +48,12 @@ img {
 }
 .no-margin{
   margin: 0;
+}
+.slider-slides {
+  transition: transform .3s ease;
+}
+.slider-slide {
+  position: absolute;
 }
 #main-menu{
   z-index: 100;

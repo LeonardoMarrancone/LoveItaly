@@ -30,7 +30,8 @@ define(function(require) {
         $('#main-menu .item a').on('tap, click', function(e){
           e.preventDefault();
           return false;
-        })
+        });
+        
       });
     },
 
