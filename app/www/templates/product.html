@@ -43,6 +43,13 @@
           </div>
         </div>
       </div>
+    
+      {{#if manufacturer_name}}
+      <div class="item item-divider">
+        <a href="#manufacturer/{{id_manufacturer}}" class="button button-block button-green go-manufacturer">Info Venditore</a>
+      </div>
+      {{/if}}
+
       <div class="item item-text-wrap no-padding">
         <div class="tabs tabs-icon-left">
           <a class="tab-item active" data-tab="#description-tab">
@@ -77,13 +84,31 @@
             </ul>
           </div>
           <div id="reviews-tab" class="tab-content">
+            <form class="send-review">
+              <div class="list">
+                <label class="item item-input">
+                  <span class="input-label">Valutazione</span>
+                  <select name="rating" class="rating">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5" selected="selected">5</option>
+                  </select>
+                </label>
+                <label class="item item-input">
+                  <span class="input-label">Commento</span>
+                  <textarea class="comment"></textarea>
+                </label>
+              </div>
+              <button class="button button-block button-green">Invia Recensione</button>
+            </form>
             <ul class="list">
             {{#each reviews as |review|}}
-              <li class="item item-avatar">
-                <img src="{{review.user.image}}">
-                <h3 class="user-review">{{review.user.name}}</h3>
-                <span class="rate-review">{{review.rate}}</span> - <span class="date-review">{{review.date}}</span>
-                <p class="content-review">{{review.content}}</p>
+              <li class="item">
+                <h3 class="user-review">{{review.username}}</h3>
+                <span class="rating-review">{{{convertToStars review.rating}}}</span><span class="date-review">{{review.date}}</span>
+                <p class="content-review">{{review.comment}}</p>
               </li>
             {{/each}}
             </ul>
@@ -92,10 +117,6 @@
         </div>  
 
       </div>
-
-      {{#if manufacturer_name}}
-        <a href="#manufacturer/{{id_manufacturer}}" class="button button-block button-green go-manufacturer">Info Venditore</a>
-        {{/if}}
 
     </div>
   </div>

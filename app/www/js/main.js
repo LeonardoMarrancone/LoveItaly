@@ -35,6 +35,20 @@ require(['handlebars'], function(Handlebars) {
   Handlebars.registerHelper('formatCurrency', function(value) {
     return parseFloat(value).toFixed(2);
   });
+
+  Handlebars.registerHelper('convertToStars', function(value) {
+    value = parseInt(value);
+    let stars = '';
+
+    for(let i = 0; i < value; i++){
+      stars += '<i class="icon ion-ios-star"></i>';
+    }
+    for(let i = 0; i < 5-value; i++){
+      stars += '<i class="icon ion-ios-star-outline"></i>';
+    }
+
+    return stars;
+  });
 })
 
 // We launch the App

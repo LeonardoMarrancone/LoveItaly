@@ -4,6 +4,8 @@ define(function(require) {
   var _ = require('underscore');
   var Backbone = require("backbone");
 
+  var ReviewsCollection = require("collections/ReviewsCollection");
+
   var ProductModel = Backbone.Model.extend({
 
       constructorName: "ProductModel",
@@ -28,6 +30,14 @@ define(function(require) {
           let model = this;
 
           let product = data.product;
+
+          let reviewsCollection = new ReviewsCollection();
+
+          reviewsCollection.fetch(product.id, {
+            success: function(reviews) {
+              product.reviews = reviews;
+            }
+          })
 
           if  (product.associations.product_features) {
 

@@ -8,8 +8,10 @@ define(function(require) {
     xml2json = new xml2json();
 
     var WishlistCollection = require("collections/WishlistCollection");
+    var ReviewsCollection = require("collections/ReviewsCollection");
     var ProductModel = require("models/ProductModel");
     var CartModel = require("models/CartModel");
+    var UserModel = require("models/UserModel");
 
     var MyProduct = Utils.Page.extend({
 
@@ -28,6 +30,7 @@ define(function(require) {
             })
 
             _.bindAll(this, 'addCart');
+            _.bindAll(this, 'sendReview');
         },
 
         id: "product",
@@ -59,6 +62,11 @@ define(function(require) {
 
                     $('.add-cart').on('tap', page.addCart) 
                     $('.button-wishlist').on('tap', page.addWishlist);
+
+                    if (localStorage.getItem('logged') == "true") {
+                        $('#reviews-tab .send-review').css("display", "block");
+                        $('#reviews-tab .send-review').on('submit', page.sendReview);
+                    }
                     
                     return page;
                 },
@@ -102,6 +110,60 @@ define(function(require) {
                         '\nError: ' + errorThrown);
                 }
             })
+        },
+
+        sendReview: function(e){
+            e.preventDefault();
+
+            let page = this;
+
+            let comment = $('#reviews-tab .comment').val().trim();
+
+            if (!comment) {
+                navigator.notification.alert(
+                    'Il campo Commento è vuoto',  // message
+                    null,         // callback
+                    'Errore',            // title
+                    'OK'                  // buttonName
+                );
+                return;
+            }
+
+            let user_model = new UserModel({
+                email: localStorage.getItem('email')
+            })
+            user_model.fetch({
+                success: function(model){
+                    let user = model.toJSON();
+                    
+                    let product = page.model.toJSON();
+                    let reviewsCollection = new ReviewsCollection();
+                    let date = new Date();
+
+                    reviewsCollection.addReview(product.id, {
+                        username: user.firstname + " " + user.lastname,
+                        rating: $('#reviews-tab .rating').val(),
+                        date: date.getDay() + '/' + date.getMonth() + '/' + date.getFullYear(),
+                        comment: comment,
+                    }, {
+                        success: function(review) {
+                            navigator.notification.alert(
+                                '',  // message
+                                null,         // callback
+                                'Recensione inviata con successo.',            // title
+                                'OK'                  // buttonName
+                            );
+                        }
+                    })
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.log('Errore chiamata ajax!' +
+                        '\nReponseText: ' + jqXHR.responseText +
+                        '\nStatus: ' + textStatus +
+                        '\nError: ' + errorThrown);
+                }
+            })
+
         },
 
         addCart: function(e){

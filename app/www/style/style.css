@@ -404,3 +404,20 @@ body.offline-mode .container-offline-mode{
 .item.item-text-wrap.product-image {
     text-align: center;
 }
+#reviews-tab .item-input{
+  padding: 6px 16px 5px 16px;
+}
+#reviews-tab .rating{
+  width: 100%;
+}
+#reviews-tab .send-review {
+  display: none;
+}
+#reviews-tab .date-review {
+  margin-left: 10px;
+}
+#reviews-tab .rating-review, #reviews-tab .date-review{
+  font-size: .8em;
+}
+
+
