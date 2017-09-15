@@ -1,7 +1,6 @@
-<h2 class="manufacturer-name"></h2>
+<h2>Wishlist</h2>
 {{#each this}}
-
-<div class="manufacturer-product container-card">
+<div class="wishlist-product container-card">
 
   <div class="card">
     <div class="item item-divider product-name"><a href="#product/{{id}}">{{name}}</a></div>
@@ -16,17 +15,22 @@
     </div>
     <div class="item item-divider product-desc">
       <p class="product-price">Prezzo: € {{formatCurrency price}}</p>
+      <p>
+        {{#if manufacturer_name}}
+          {{manufacturer_name}}
+        {{/if}}
+      </p>
       <div class="row">
         <div class="col col-50">
           <button class="button button-green button-buy" data-product-id="{{id}}">Acquista</button>
         </div>
         <div class="col col-50">
-          <button class="button button-green button-wishlist" data-product-id="{{id}}">Wishlist</button>
+          <button class="button button-green button-remove-wishlist" data-product-id="{{id}}">Rimuovi</button>
         </div>
       </div>
     </div>
   </div>
 </div>
-
 {{/each}}
 
+<p class="padding empty-wishlist">Nessun prodotto nella wishlist!</p>

@@ -6,6 +6,7 @@ define(function(require) {
     var Utils = require("utils");
     var Handlebars = require("handlebars");
 
+    var WishlistCollection = require("collections/WishlistCollection");
     var CategoriesCollection = require("collections/CategoriesCollection");
     var SearchProductsCollection = require("collections/SearchProductsCollection");
     var CartModel = require("models/CartModel");
@@ -53,6 +54,7 @@ define(function(require) {
                                 $('.button-buy').on('tap', page.addCart);
                                 $('.search-result-number-container').css('display', 'block');
                                 $('.search-result-number').html(products.length);
+                                $('.button-wishlist').on('tap', page.addWishlist);
                             }
                             else {
                                 search_html = Handlebars.compile(search_html)();
@@ -83,6 +85,31 @@ define(function(require) {
                 }
             });
 
+        },
+
+        addWishlist: function(e){
+            e.preventDefault();
+
+            let id_product = $(this).attr("data-product-id");
+
+            let wishlistCollection = new WishlistCollection();
+
+            wishlistCollection.addProduct(id_product, {
+                success: function(wishlist) {
+                    navigator.notification.alert(
+                        '',  // message
+                        null,         // callback
+                        'Aggiunto alla wishlist con successo',            // title
+                        'OK'                  // buttonName
+                    );
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown) {
+                    console.log('Errore chiamata ajax!' +
+                        '\nReponseText: ' + XMLHttpRequest.responseText +
+                        '\nStatus: ' + textStatus +
+                        '\nError: ' + errorThrown);
+                }
+            })
         },
 
         addCart: function(e){

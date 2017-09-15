@@ -7,6 +7,7 @@ define(function(require) {
     var xml2json = require("xml2json");
     xml2json = new xml2json();
 
+    var WishlistCollection = require("collections/WishlistCollection");
     var ProductModel = require("models/ProductModel");
     var CartModel = require("models/CartModel");
 
@@ -57,6 +58,7 @@ define(function(require) {
                     $('.main-content').scrollTop(0, 0);
 
                     $('.add-cart').on('tap', page.addCart) 
+                    $('.button-wishlist').on('tap', page.addWishlist);
                     
                     return page;
                 },
@@ -75,6 +77,31 @@ define(function(require) {
             let product_html = this.template(product);
             product_html = Handlebars.compile(product_html)();
             $('#features-tab').html($(product_html).find('#features-tab').html());
+        },
+
+        addWishlist: function(e){
+            e.preventDefault();
+
+            let id_product = $(this).attr("data-product-id");
+
+            let wishlistCollection = new WishlistCollection();
+
+            wishlistCollection.addProduct(id_product, {
+                success: function(wishlist) {
+                    navigator.notification.alert(
+                        '',  // message
+                        null,         // callback
+                        'Aggiunto alla wishlist con successo',            // title
+                        'OK'                  // buttonName
+                    );
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown) {
+                    console.log('Errore chiamata ajax!' +
+                        '\nReponseText: ' + XMLHttpRequest.responseText +
+                        '\nStatus: ' + textStatus +
+                        '\nError: ' + errorThrown);
+                }
+            })
         },
 
         addCart: function(e){

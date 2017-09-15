@@ -1,81 +1,76 @@
 define(function(require) {
 
-    var $ = require("jquery");
+    var $ = require('jquery');
     var Backbone = require("backbone");
     var Utils = require("utils");
     var Handlebars = require("handlebars");
-
-    var ProductsModel = require("models/ProductsModel");
-    var ManufacturerProductsCollection = require("collections/ManufacturerProductsCollection");
-    var WishlistCollection = require("collections/WishlistCollection");
+    var wishlistCollection = require("collections/wishlistCollection");
     var CartModel = require("models/CartModel");
 
-    var MyManufacturerProducts = Utils.Page.extend({
+    var MyWishlist = Utils.Page.extend({
 
-        constructorName: "MyManufacturerProductsCollection",
+        constructorName: "MyWishlist",
 
         initialize: function(options) {
             // load the precompiled template
-            this.template = Utils.templates.manufacturer_products;
-            this.id_manufacturer = options.id
+            this.template = Utils.templates.wishlist;
+
+            this.collection = new wishlistCollection();
         },
 
-        id: "MyManufacturerProductsCollection",
-        className: "",
-        model: ProductsModel,
-        collection: ManufacturerProductsCollection,
+        id: "wishlist",
 
         render: function() {
-            var MyCollection = new ManufacturerProductsCollection({
-                id: this.id_manufacturer
-            });
 
-            var page = this;
-            MyCollection.fetch({
-                success: function(collection, response, options) {
-                    let products = collection.toJSON();
+            let page = this;
 
-                    let products_html = page.template(products);
-                    products_html = Handlebars.compile(products_html)();
-                    $('#content').html(products_html);
-                    $('.manufacturer-name').html(products[0].manufacturer_name)
-                    $('.main-content').scrollTop(0, 0);
-                    $('.button-buy').on('tap', page.addCart);
-                    $('.button-wishlist').on('tap', page.addWishlist);
-                },
-                error: function(XMLHttpRequest, textStatus, errorThrown) {
-                    console.log('Errore chiamata ajax!' +
-                        '\nReponseText: ' + XMLHttpRequest.responseText +
-                        '\nStatus: ' + textStatus +
-                        '\nError: ' + errorThrown);
-                }
-            });     
-
-        },
-
-        addWishlist: function(e){
-            e.preventDefault();
-
-            let id_product = $(this).attr("data-product-id");
-
-            let wishlistCollection = new WishlistCollection();
-
-            wishlistCollection.addProduct(id_product, {
+            this.collection.fetch({
                 success: function(wishlist) {
-                    navigator.notification.alert(
-                        '',  // message
-                        null,         // callback
-                        'Aggiunto alla wishlist con successo',            // title
-                        'OK'                  // buttonName
-                    );
+
+                    if (wishlist && wishlist.length > 0) {
+
+                        let wishlist_html = page.template(wishlist);
+                        wishlist_html = Handlebars.compile(wishlist_html)();
+                        $('#content').html(wishlist_html);
+
+                        $('.main-content').scrollTop(0, 0);
+
+                        $('.button-buy').on('tap', page.addCart);
+
+                        $('.button-remove-wishlist').on('tap', function(e){
+                            e.preventDefault();
+
+                            let id_product = $(this).attr('data-product-id');
+
+                            page.collection.removeProduct(id_product, {
+                                success: function(wishlist) {
+                                    page.render();
+                                }
+                            })
+
+                            return false;
+                        })
+                    }
+                    else{
+                        let wishlist_html = page.template();
+                        wishlist_html = Handlebars.compile(wishlist_html)();
+                        $('#content').html(wishlist_html);
+                        $('.empty-wishlist').css('display', 'block');
+
+                        $('.main-content').scrollTop(0, 0);
+                    }
+
+
                 },
                 error: function(XMLHttpRequest, textStatus, errorThrown) {
+
                     console.log('Errore chiamata ajax!' +
                         '\nReponseText: ' + XMLHttpRequest.responseText +
                         '\nStatus: ' + textStatus +
                         '\nError: ' + errorThrown);
                 }
             })
+
         },
 
         addCart: function(e){
@@ -163,8 +158,9 @@ define(function(require) {
             }
             
         },
+
     });
 
-    return MyManufacturerProducts;
+    return MyWishlist;
 
 });

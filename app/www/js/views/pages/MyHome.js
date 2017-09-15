@@ -8,6 +8,7 @@ define(function(require) {
     var ProductsModel = require("models/ProductsModel");
     var ProductsCollection = require("collections/ProductsCollection");
     var RandomProductsCollection = require("collections/RandomProductsCollection");
+    var WishlistCollection = require("collections/WishlistCollection");
     var CartModel = require("models/CartModel");
 
     var MyHome = Utils.Page.extend({
@@ -41,7 +42,8 @@ define(function(require) {
                     $('#new-products').html(products_html);
                     $('.main-content').scrollTop(0, 0);
 
-                    $('.button-buy').on('tap', page.addCart);
+                    $('#new-products .button-buy').on('tap', page.addCart);
+                    $('#new-products .button-wishlist').on('tap', page.addWishlist);
                 },
                 error: function(XMLHttpRequest, textStatus, errorThrown) {
                     console.log('Errore chiamata ajax!' +
@@ -71,7 +73,8 @@ define(function(require) {
                             products_html = Handlebars.compile(products_html)();
                             $('#showcase-products').html(products_html);
 
-                            $('.button-buy').on('tap', page.addCart);
+                            $('#showcase-products .button-buy').on('tap', page.addCart);
+                            $('#showcase-products .button-wishlist').on('tap', page.addWishlist);
 
                         },
                         error: function(XMLHttpRequest, textStatus, errorThrown) {
@@ -92,6 +95,31 @@ define(function(require) {
 
                     
 
+        },
+
+        addWishlist: function(e){
+            e.preventDefault();
+
+            let id_product = $(this).attr("data-product-id");
+
+            let wishlistCollection = new WishlistCollection();
+
+            wishlistCollection.addProduct(id_product, {
+                success: function(wishlist) {
+                    navigator.notification.alert(
+                        '',  // message
+                        null,         // callback
+                        'Aggiunto alla wishlist con successo',            // title
+                        'OK'                  // buttonName
+                    );
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown) {
+                    console.log('Errore chiamata ajax!' +
+                        '\nReponseText: ' + XMLHttpRequest.responseText +
+                        '\nStatus: ' + textStatus +
+                        '\nError: ' + errorThrown);
+                }
+            })
         },
 
         addCart: function(e){

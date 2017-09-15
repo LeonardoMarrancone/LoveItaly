@@ -334,7 +334,7 @@ img {
   left: 50%;
   transform: translateY(-50%) translateX(-50%);
 }
-.empty-cart, .empty-orders, .footer-cart, .choose-payments, .send-order, .empty-search{
+.empty-cart, .empty-orders, .footer-cart, .choose-payments, .send-order, .empty-search, .empty-wishlist{
   display: none;
 }
 #profile-form input[disabled]{
@@ -400,4 +400,7 @@ body.offline-mode .container-offline-mode{
 }
 .search-form button[type="submit"] > .icon {
   color: #127f3f;
+}
+.item.item-text-wrap.product-image {
+    text-align: center;
 }
