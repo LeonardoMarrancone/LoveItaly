@@ -156,6 +156,31 @@ define(function(require) {
                 })
 
             }
+            else {
+                let cart = new CartModel();
+                cart.addProductLocalStorage(product, quantity, {
+                    success: function(){
+                        navigator.notification.alert(
+                            '',  // message
+                            null,         // callback
+                            'Aggiunto al carrello con successo',            // title
+                            'OK'                  // buttonName
+                        );
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        navigator.notification.alert(
+                            'Impossibile aggiungere al carrello.',  // message
+                            null,         // callback
+                            'Errore',            // title
+                            'OK'                  // buttonName
+                        );
+                        console.log('Errore chiamata ajax!' +
+                            '\nReponseText: ' + jqXHR.responseText +
+                            '\nStatus: ' + textStatus +
+                            '\nError: ' + errorThrown);
+                    }
+                });
+            }
             
         },
 

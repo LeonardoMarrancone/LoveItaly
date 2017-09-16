@@ -16,6 +16,11 @@
     </div>
     <div class="item item-divider product-desc">
       <p class="product-price">Prezzo: € {{formatCurrency product.price}}</p>
+      <p>
+        {{#if manufacturer_name}}
+          {{manufacturer_name}}
+        {{/if}}
+      </p>
       <div class="row">
         <div class="col col-50 col-update-quantity">
           <label class="input-label-quantity">Quantità</label>

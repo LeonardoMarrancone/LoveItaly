@@ -5,6 +5,7 @@ define(function(require) {
     var Utils = require("utils");
     var Handlebars = require("handlebars");
     var UserModel = require("models/UserModel");
+    var CartModel = require("models/CartModel");
 
     var MyLogin = Utils.Page.extend({
 
@@ -65,6 +66,22 @@ define(function(require) {
 
                         $('#main-menu .logout, #main-menu .profile, #main-menu .orders').css('display', 'block');
                         $('#main-menu .login, #main-menu .registration').css('display', 'none');
+
+                        let cart_model = new CartModel({
+                            user_id: user.id
+                        });
+
+                        cart_model.syncLocalStorageToServer({
+                            success: function(){
+                                
+                            },
+                            error: function(XMLHttpRequest, textStatus, errorThrown) {
+                                console.log('Errore chiamata ajax!' +
+                                    '\nReponseText: ' + XMLHttpRequest.responseText +
+                                    '\nStatus: ' + textStatus +
+                                    '\nError: ' + errorThrown);
+                            }
+                        });
 
                         navigator.notification.alert(
                             'Verrai mandato automaticamente nella home.',  // message
