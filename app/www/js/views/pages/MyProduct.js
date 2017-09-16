@@ -12,6 +12,7 @@ define(function(require) {
     var ProductModel = require("models/ProductModel");
     var CartModel = require("models/CartModel");
     var UserModel = require("models/UserModel");
+    var OrdersCollection = require("collections/OrdersCollection");
 
     var MyProduct = Utils.Page.extend({
 
@@ -64,10 +65,32 @@ define(function(require) {
                     $('.button-wishlist').on('tap', page.addWishlist);
 
                     if (localStorage.getItem('logged') == "true") {
-                        $('#reviews-tab .send-review').css("display", "block");
-                        $('#reviews-tab .send-review').on('submit', page.sendReview);
+                        let ordersCollection = new OrdersCollection();
+                        ordersCollection.fetch({
+                            success: function(orders) {
+                                for(let i = 0, length1 = orders.length; i < length1; i++){
+                                    let order = orders[i];
+
+                                    for(let j = 0, length2 = order.products.length; j < length2; j++){
+                                        if (!order.products[i]) {
+                                            continue;
+                                        }
+                                        if ( order.products[i].id == product.id ) {
+                                            $('#reviews-tab .send-review').css("display", "block");
+                                            $('#reviews-tab .send-review').on('submit', page.sendReview);
+                                            $('.cant-review').css("display", "none");
+                                            return;
+                                        }
+                                    }
+                                        
+                                }  
+                                $('.cant-review').css("display", "block");
+                                
+                            }
+                        })    
+
                     }
-                    
+
                     return page;
                 },
                 error: function(XMLHttpRequest, textStatus, errorThrown) {

@@ -25,4 +25,8 @@ define({
     cart_payments: "templates/cart-payments.html",
     search: "templates/search.html",
     wishlist: "templates/wishlist.html",
+    info: "templates/info.html",
+    about: "templates/about.html",
+    contacts: "templates/contacts.html",
+    faq: "templates/faq.html",
 });

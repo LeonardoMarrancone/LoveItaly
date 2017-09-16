@@ -17,6 +17,10 @@ define(function(require) {
   var MyCartPayments = require("views/pages/MyCartPayments");
   var MySearch = require("views/pages/MySearch");
   var MyWishlist = require("views/pages/MyWishlist");
+  var MyInfo = require("views/pages/MyInfo");
+  var MyAbout = require("views/pages/MyAbout");
+  var MyContacts = require("views/pages/MyContacts");
+  var MyFaq = require("views/pages/MyFaq");
 
   var AppRouter = Backbone.Router.extend({
 
@@ -40,6 +44,10 @@ define(function(require) {
       "search/:product_name": "search",
       "search/:product_name/:id_category": "search",
       "wishlist": "wishlist",
+      "info": "info",
+      "about": "about",
+      "contacts": "contacts",
+      "faq": "faq",
     },
 
     firstView: "home",
@@ -147,6 +155,34 @@ define(function(require) {
     home: function() {
       // create the view
       var page = new MyHome();
+      // show the view
+      this.changePage(page);
+    },
+
+    info: function() {
+      // create the view
+      var page = new MyInfo();
+      // show the view
+      this.changePage(page);
+    },
+
+    about: function(){
+      // create the view
+      var page = new MyAbout();
+      // show the view
+      this.changePage(page);
+    },
+
+    contacts: function(){
+      // create the view
+      var page = new MyContacts();
+      // show the view
+      this.changePage(page);
+    },
+
+    faq: function(){
+      // create the view
+      var page = new MyFaq();
       // show the view
       this.changePage(page);
     },

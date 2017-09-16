@@ -71,7 +71,7 @@ img {
 .menu-content.menu-opened{
   transform: translateX(275px);
 }
-.menu-content.menu-opened .scroll-view.scroll-x, body.offline-mode .scroll-view.scroll-x{
+.menu-content.menu-opened .scroll-view.scroll-x, body.offline-mode .scroll-view.scroll-x, body.choose-city-opened .scroll-view.scroll-x{
   overflow-x: hidden;
 }
 #main-menu > .list > .item{
@@ -141,7 +141,7 @@ img {
   top: 88px;
   padding-top: 0;
 }
-.main-content.menu-opened, body.offline-mode .main-content{
+.main-content.menu-opened, body.offline-mode .main-content, body.choose-city-opened .main-content{
   overflow-y: hidden;
 }
 .main-content .slider{
@@ -341,7 +341,7 @@ img {
   left: 50%;
   transform: translateY(-50%) translateX(-50%);
 }
-.empty-cart, .empty-orders, .footer-cart, .choose-payments, .send-order, .empty-search, .empty-wishlist{
+.empty-cart, .cant-review, .empty-orders, .footer-cart, .choose-payments, .send-order, .empty-search, .empty-wishlist, .container-choose-city{
   display: none;
 }
 #profile-form input[disabled]{
@@ -426,5 +426,58 @@ body.offline-mode .container-offline-mode{
 #reviews-tab .rating-review, #reviews-tab .date-review{
   font-size: .8em;
 }
-
+.container-choose-city{
+  position: fixed;
+  z-index: 99999;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.8);
+}
+.container-choose-city img{
+  max-width: 70px;
+  box-shadow: 1px 1px 1px 1px #333;
+  padding: 10px;
+  border-radius: 20%;
+  background: rgba(255, 255, 255, 0.6);
+}
+.container-choose-city div{
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  max-width: 70%;
+  color: #fff;
+  border-radius: 20px;
+  font-weight: bold;
+  font-size: 1.3em;
+  background: rgba(18, 127, 63, 0.8);
+}
+.info-list .item.active{
+  background-color: #fff;
+}
+.info-list .item .item-info-title{
+  padding: 10px 0;
+  font-weight: bold;
+}
+.info-list .item.active .item-info-title{
+  color: #127f3f;
+}
+.info-list .item .item-info-title .icon{
+  float: right;
+  font-size: 2em;
+  transform: translateY(-25%);
+}
+.info-list .item .item-info-content{
+  display: none;
+  white-space: normal;
+}
+.info-list .item .item-info-content p, .contacts-list .item{
+  white-space: normal;
+}
+.info-list .item.active .item-info-content{
+  display: block;
+}
 

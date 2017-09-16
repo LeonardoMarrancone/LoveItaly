@@ -4,12 +4,10 @@ require.config({
     jquery: '../lib/zepto/zepto', // ../lib/jquery/jquery', 
     underscore: '../lib/underscore/underscore',
     backbone: "../lib/backbone/backbone",
+    handlebars: '../lib/handlebars/handlebars',
     text: '../lib/require/text',
     async: '../lib/require/async',
-    handlebars: '../lib/handlebars/handlebars',
     templates: '../templates',
-    leaflet: '../lib/leaflet/leaflet',
-    spin: '../lib/spin/spin.min',
     preloader: '../lib/preloader/pre-loader',
     utils: '../lib/utils/utils',
     md5: '../lib/md5.min',
@@ -25,9 +23,6 @@ require.config({
     'handlebars': {
       exports: 'Handlebars'
     },
-    'leaflet': {
-      exports: 'L'
-    }
   }
 });
 

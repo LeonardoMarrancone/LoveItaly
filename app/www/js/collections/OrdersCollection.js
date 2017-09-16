@@ -3,8 +3,8 @@ define(function(require) {
     var Backbone = require("backbone");
     var OrderModel = require("models/OrderModel");
 
-    var OrderCollection = Backbone.Collection.extend({
-        constructorName: "OrderCollection",
+    var OrdersCollection = Backbone.Collection.extend({
+        constructorName: "OrdersCollection",
         model: OrderModel,
         fetch: function(options){
             let orders = JSON.parse(localStorage.getItem('orders'));
@@ -24,5 +24,5 @@ define(function(require) {
         }
     });
 
-    return OrderCollection;
+    return OrdersCollection;
 });

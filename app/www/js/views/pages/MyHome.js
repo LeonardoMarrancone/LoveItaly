@@ -36,6 +36,11 @@ define(function(require) {
               $(slide).css('transform', 'translateX('+(100*index)+'%)');
             });
 
+            if (!localStorage.getItem('city_delivery')) {
+                $('.container-choose-city').css('display', 'block');
+                $('body').addClass('choose-city-opened');
+            } 
+
             $('.slider-pager-page').on('tap', function(e){
                 $('.slider-pager-page.active').removeClass('active');
                 $(this).addClass('active');
